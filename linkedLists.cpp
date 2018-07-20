@@ -80,25 +80,6 @@ public:
 		head = temp;
 	}
 	
-	/*add_node adds a node to the tail end of the linked list*/
-	void add_node(int n)
-	{
-		node *temp = new node;
-		temp->data = n;
-		temp->next = NULL;
-		
-		if(head == NULL)
-		{
-			head = temp;
-			tail = temp;
-		}
-		else
-		{
-			tail->next = temp;
-			tail = tail->next;
-		}
-	}
-	
 	/*after adds a node after the node parameter*/
 	void after(node *a,int value)
 	{
@@ -110,6 +91,14 @@ public:
 		 */
 		p->next = a->next;
 		a->next = p;
+	}
+	
+	void del(node *before_del)
+	{
+		node* temp;
+		temp = before_del->next;
+		before_del->next = temp->next;
+		delete temp;
 	}
 	
 };
@@ -125,6 +114,13 @@ int main()
 	b.add_node(4);
     linked_list::concatenate(a.gethead(),b.gethead());
     a.display(a.gethead());
+	
+	a.front(5);
+	a.add_node(6);
+	a.add_node(7);
+	a.after(a.gethead()->next->next->next, 11);
+	a.del(a.gethead()->next);
+	a.display(a.gethead());
 	
 	return 0;
 }
